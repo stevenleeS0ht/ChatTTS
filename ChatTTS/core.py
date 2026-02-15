@@ -219,8 +219,8 @@ class Chat:
         do_homophone_replacement=True,
         split_text=True,
         max_split_batch=4,
-        params_refine_text=RefineTextParams(),
-        params_infer_code=InferCodeParams(),
+        params_refine_text: RefineTextParams | None =None,
+        params_infer_code: InferCodeParams | None = None,
     ):
         self.context.set(False)
 
@@ -399,9 +399,13 @@ class Chat:
         do_homophone_replacement=True,
         split_text=True,
         max_split_batch=4,
-        params_refine_text=RefineTextParams(),
-        params_infer_code=InferCodeParams(),
+        params_refine_text: RefineTextParams | None = None,
+        params_infer_code: InferCodeParams| None = None,
     ):
+        if params_refine_text is None:
+            params_refine_text = self.RefineTextParams()
+        if params_infer_code is None:
+            params_infer_code = self.InferCodeParams()
 
         assert self.has_loaded(use_decoder=use_decoder)
 
